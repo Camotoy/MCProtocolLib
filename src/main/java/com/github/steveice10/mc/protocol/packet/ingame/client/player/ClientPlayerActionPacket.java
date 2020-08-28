@@ -7,6 +7,7 @@ import com.github.steveice10.mc.protocol.data.game.world.block.BlockFace;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ClientPlayerActionPacket implements Packet {
     private @NonNull PlayerAction action;
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull BlockFace face;
 
     @Override

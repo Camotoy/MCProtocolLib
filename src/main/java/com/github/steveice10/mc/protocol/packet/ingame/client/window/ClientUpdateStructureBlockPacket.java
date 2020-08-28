@@ -9,6 +9,7 @@ import com.github.steveice10.mc.protocol.data.game.world.block.StructureRotation
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,12 +28,12 @@ public class ClientUpdateStructureBlockPacket implements Packet {
     private static final int FLAG_SHOW_AIR = 0x02;
     private static final int FLAG_SHOW_BOUNDING_BOX = 0x04;
 
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull UpdateStructureBlockAction action;
     private @NonNull UpdateStructureBlockMode mode;
     private @NonNull String name;
-    private @NonNull Position offset;
-    private @NonNull Position size;
+    private @NonNull Vector3i offset;
+    private @NonNull Vector3i size;
     private @NonNull StructureMirror mirror;
     private @NonNull StructureRotation rotation;
     private @NonNull String metadata;
@@ -48,8 +49,8 @@ public class ClientUpdateStructureBlockPacket implements Packet {
         this.action = MagicValues.key(UpdateStructureBlockAction.class, in.readVarInt());
         this.mode = MagicValues.key(UpdateStructureBlockMode.class, in.readVarInt());
         this.name = in.readString();
-        this.offset = new Position(in.readByte(), in.readByte(), in.readByte());
-        this.size = new Position(in.readUnsignedByte(), in.readUnsignedByte(), in.readUnsignedByte());
+        this.offset = Vector3i.from(in.readByte(), in.readByte(), in.readByte());
+        this.size = Vector3i.from(in.readUnsignedByte(), in.readUnsignedByte(), in.readUnsignedByte());
         this.mirror = MagicValues.key(StructureMirror.class, in.readVarInt());
         this.rotation = MagicValues.key(StructureRotation.class, in.readVarInt());
         this.metadata = in.readString();

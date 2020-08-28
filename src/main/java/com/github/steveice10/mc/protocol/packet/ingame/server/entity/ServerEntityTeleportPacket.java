@@ -3,6 +3,7 @@ package com.github.steveice10.mc.protocol.packet.ingame.server.entity;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3d;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,9 +18,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ServerEntityTeleportPacket implements Packet {
     private int entityId;
-    private double x;
-    private double y;
-    private double z;
+    private Vector3d position;
     private float yaw;
     private float pitch;
     private boolean onGround;
@@ -27,9 +26,7 @@ public class ServerEntityTeleportPacket implements Packet {
     @Override
     public void read(NetInput in) throws IOException {
         this.entityId = in.readVarInt();
-        this.x = in.readDouble();
-        this.y = in.readDouble();
-        this.z = in.readDouble();
+        this.position = Vector3d.from(in.readDouble(), in.readDouble(), in.readDouble());
         this.yaw = in.readByte() * 360 / 256f;
         this.pitch = in.readByte() * 360 / 256f;
         this.onGround = in.readBoolean();
@@ -38,9 +35,9 @@ public class ServerEntityTeleportPacket implements Packet {
     @Override
     public void write(NetOutput out) throws IOException {
         out.writeVarInt(this.entityId);
-        out.writeDouble(this.x);
-        out.writeDouble(this.y);
-        out.writeDouble(this.z);
+        out.writeDouble(this.position.getX());
+        out.writeDouble(this.position.getY());
+        out.writeDouble(this.position.getZ());
         out.writeByte((byte) (this.yaw * 256 / 360));
         out.writeByte((byte) (this.pitch * 256 / 360));
         out.writeBoolean(this.onGround);

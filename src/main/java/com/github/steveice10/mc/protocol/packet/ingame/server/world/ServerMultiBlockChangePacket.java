@@ -5,6 +5,7 @@ import com.github.steveice10.mc.protocol.data.game.world.block.BlockChangeRecord
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,7 +53,7 @@ public class ServerMultiBlockChangePacket implements Packet {
             int x = (this.chunkX << 4) + (position >>> 8 & 0xF);
             int y = (this.chunkY << 4) + (position & 0xF);
             int z = (this.chunkZ << 4) + (position >>> 4 & 0xF);
-            this.records[index] = new BlockChangeRecord(new Position(x, y, z), (int) (blockData >>> 12));
+            this.records[index] = new BlockChangeRecord(Vector3i.from(x, y, z), (int) (blockData >>> 12));
         }
     }
 

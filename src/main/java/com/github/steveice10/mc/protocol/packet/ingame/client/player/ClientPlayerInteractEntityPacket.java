@@ -6,6 +6,7 @@ import com.github.steveice10.mc.protocol.data.game.entity.player.InteractAction;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3f;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,9 +24,7 @@ public class ClientPlayerInteractEntityPacket implements Packet {
     private int entityId;
     private @NonNull InteractAction action;
 
-    private float targetX;
-    private float targetY;
-    private float targetZ;
+    private Vector3f target;
     private @NonNull Hand hand;
     private boolean isSneaking;
 
@@ -34,7 +33,7 @@ public class ClientPlayerInteractEntityPacket implements Packet {
     }
 
     public ClientPlayerInteractEntityPacket(int entityId, InteractAction action, Hand hand, boolean isSneaking) {
-        this(entityId, action, 0, 0, 0, hand, isSneaking);
+        this(entityId, action, Vector3f.ZERO, hand, isSneaking);
     }
 
     @Override
@@ -42,9 +41,7 @@ public class ClientPlayerInteractEntityPacket implements Packet {
         this.entityId = in.readVarInt();
         this.action = MagicValues.key(InteractAction.class, in.readVarInt());
         if(this.action == InteractAction.INTERACT_AT) {
-            this.targetX = in.readFloat();
-            this.targetY = in.readFloat();
-            this.targetZ = in.readFloat();
+            this.target = Vector3f.from(in.readFloat(), in.readFloat(), in.readFloat());
         }
 
         if(this.action == InteractAction.INTERACT || this.action == InteractAction.INTERACT_AT) {
@@ -58,9 +55,9 @@ public class ClientPlayerInteractEntityPacket implements Packet {
         out.writeVarInt(this.entityId);
         out.writeVarInt(MagicValues.value(Integer.class, this.action));
         if(this.action == InteractAction.INTERACT_AT) {
-            out.writeFloat(this.targetX);
-            out.writeFloat(this.targetY);
-            out.writeFloat(this.targetZ);
+            out.writeFloat(this.target.getX());
+            out.writeFloat(this.target.getY());
+            out.writeFloat(this.target.getZ());
         }
 
         if(this.action == InteractAction.INTERACT || this.action == InteractAction.INTERACT_AT) {

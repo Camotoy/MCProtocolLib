@@ -4,6 +4,7 @@ import com.github.steveice10.mc.protocol.data.game.entity.metadata.Position;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ import java.util.Arrays;
 @Setter(AccessLevel.NONE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClientUpdateSignPacket implements Packet {
-    private @NonNull Position position;
-    private @NonNull String lines[];
+    private @NonNull Vector3i position;
+    private @NonNull String[] lines;
 
-    public ClientUpdateSignPacket(@NonNull Position position, @NonNull String lines[]) {
+    public ClientUpdateSignPacket(@NonNull Vector3i position, @NonNull String[] lines) {
         if(lines.length != 4) {
             throw new IllegalArgumentException("Lines must contain exactly 4 strings.");
         }

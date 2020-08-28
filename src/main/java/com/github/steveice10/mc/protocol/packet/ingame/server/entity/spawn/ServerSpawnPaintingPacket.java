@@ -7,6 +7,7 @@ import com.github.steveice10.mc.protocol.data.game.entity.type.PaintingType;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class ServerSpawnPaintingPacket implements Packet {
     private int entityId;
     private @NonNull UUID uuid;
     private @NonNull PaintingType paintingType;
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull HangingDirection direction;
 
     @Override

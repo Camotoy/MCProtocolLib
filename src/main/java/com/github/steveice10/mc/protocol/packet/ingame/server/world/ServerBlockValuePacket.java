@@ -19,6 +19,7 @@ import com.github.steveice10.mc.protocol.data.game.world.block.value.PistonValue
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,7 +45,7 @@ public class ServerBlockValuePacket implements Packet {
     private static final int SHULKER_BOX_LOWER = 509;
     private static final int SHULKER_BOX_HIGHER = 525;
 
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull BlockValueType type;
     private @NonNull BlockValue value;
     private int blockId;

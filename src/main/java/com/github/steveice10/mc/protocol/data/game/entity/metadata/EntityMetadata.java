@@ -11,6 +11,8 @@ import com.github.steveice10.mc.protocol.data.message.MessageSerializer;
 import com.github.steveice10.opennbt.tag.builtin.CompoundTag;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
+import com.nukkitx.math.vector.Vector3f;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -66,7 +68,8 @@ public class EntityMetadata {
                     value = in.readBoolean();
                     break;
                 case ROTATION:
-                    value = Rotation.read(in);
+                    //                    pitch           yaw             roll
+                    value = Vector3f.from(in.readFloat(), in.readFloat(), in.readFloat());
                     break;
                 case OPTIONAL_POSITION:
                     boolean positionPresent = in.readBoolean();
@@ -149,7 +152,10 @@ public class EntityMetadata {
                     out.writeBoolean((Boolean) meta.getValue());
                     break;
                 case ROTATION:
-                    Rotation.write(out, (Rotation) meta.getValue());
+                    Vector3f value = (Vector3f) meta.getValue();
+                    out.writeFloat(value.getX());
+                    out.writeFloat(value.getY());
+                    out.writeFloat(value.getZ());
                     break;
                 case OPTIONAL_POSITION:
                     out.writeBoolean(meta.getValue() != null);
@@ -159,7 +165,7 @@ public class EntityMetadata {
 
                     // Intentional fall-through
                 case POSITION:
-                    Position.write(out, (Position) meta.getValue());
+                    Position.write(out, (Vector3i) meta.getValue());
                     break;
                 case BLOCK_FACE:
                     out.writeVarInt(MagicValues.value(Integer.class, meta.getValue()));

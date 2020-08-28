@@ -16,6 +16,7 @@ import com.github.steveice10.mc.protocol.data.game.world.effect.WorldEffectData;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,11 +32,11 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ServerPlayEffectPacket implements Packet {
     private @NonNull WorldEffect effect;
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull WorldEffectData data;
     private boolean broadcast;
 
-    public ServerPlayEffectPacket(@NonNull WorldEffect effect, @NonNull Position position, @NonNull WorldEffectData data) {
+    public ServerPlayEffectPacket(@NonNull WorldEffect effect, @NonNull Vector3i position, @NonNull WorldEffectData data) {
         this(effect, position, data, false);
     }
 

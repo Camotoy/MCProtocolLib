@@ -6,6 +6,7 @@ import com.github.steveice10.mc.protocol.data.game.world.block.CommandBlockMode;
 import com.github.steveice10.packetlib.io.NetInput;
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.packet.Packet;
+import com.nukkitx.math.vector.Vector3i;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class ClientUpdateCommandBlockPacket implements Packet {
     private static final int FLAG_CONDITIONAL = 0x02;
     private static final int FLAG_AUTOMATIC = 0x04;
 
-    private @NonNull Position position;
+    private @NonNull Vector3i position;
     private @NonNull String command;
     private @NonNull CommandBlockMode mode;
     private boolean doesTrackOutput;
